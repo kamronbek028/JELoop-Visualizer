@@ -14,6 +14,7 @@ import { JSHINT } from "jshint";
 
 import checkFormat from "../functions/check-format";
 import parsedCode from "../functions/parsed-code";
+import unsortedCode from "../functions/unsorted-code";
 
 import "./homepage.styles.scss";
 
@@ -41,6 +42,36 @@ class HomePage extends React.Component {
       isWebApi: [],
       isCallbackQueue: [],
     };
+  }
+
+  componentDidMount() {
+    const markup = `function three() {
+setTimeout(function () {
+  console.log("last three");
+}, 1000);
+console.log("three");
+}
+
+setTimeout(function () {
+  console.log("yes, setTimeout");
+  one();
+}, 1000);
+        
+function two() {
+  console.log("two");
+  three();
+}
+          
+function one() {
+  console.log("one");
+  two();
+}
+          
+console.log(multiply(4, 20));
+          
+one();`;
+
+    this.setState({ value: markup });
   }
 
   onClick = () => {
@@ -82,9 +113,15 @@ class HomePage extends React.Component {
 
     // IF NO FORMAT ERROR
     if (success) {
+      // PARSING CODE TREE
       const parsedCodeTree = parsedCode(value);
 
+      // UNSORTING CODE
+      unsortedCode(parsedCodeTree, unsortedCallStack, unsortedFunction);
+
       console.log(parsedCodeTree);
+      console.log(unsortedFunction);
+      console.log(unsortedCallStack);
       console.log("NO ERROR");
     }
   };
