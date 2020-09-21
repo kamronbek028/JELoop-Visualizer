@@ -13,6 +13,7 @@ import "../../node_modules/codemirror/addon/lint/javascript-lint";
 import { JSHINT } from "jshint";
 
 import checkFormat from "../functions/check-format";
+import parsedCode from "../functions/parsed-code";
 
 import "./homepage.styles.scss";
 
@@ -77,12 +78,13 @@ class HomePage extends React.Component {
     clearState();
 
     // CHECK FORMAT SPELLING
-    let success = JSHINT(value);
-
-    checkFormat(JSHINT, success);
+    const success = checkFormat(JSHINT, value);
 
     // IF NO FORMAT ERROR
     if (success) {
+      const parsedCodeTree = parsedCode(value);
+
+      console.log(parsedCodeTree);
       console.log("NO ERROR");
     }
   };

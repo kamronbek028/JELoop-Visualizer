@@ -1,4 +1,5 @@
-function checkFormat(JSHINT, success) {
+function checkFormat(JSHINT, value) {
+  let success = JSHINT(value);
   let output = "";
 
   if (!success) {
@@ -15,12 +16,10 @@ function checkFormat(JSHINT, success) {
     }
 
     alert(output);
-
-    success = false;
-    return;
+    return success;
   }
 
-  success = true;
+  return success;
 }
 
 export default checkFormat;
