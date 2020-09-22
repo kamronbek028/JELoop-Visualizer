@@ -5,6 +5,10 @@ $primary-text: #e0e6f0;
 $secondary-text: #9ea8b9;
 $border: #797a7e;
 
+:root {
+  --interval: 1000ms;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -103,7 +107,7 @@ $border: #797a7e;
           margin: 0 auto;
           padding: 10px;
           overflow-x: hidden;
-          animation: fadeIn 1s ease;
+          animation: fadeIn var(--interval) ease;
 
           &:not(:last-child) {
             margin: 10px auto;
@@ -119,5 +123,5 @@ $border: #797a7e;
 }
 
 .remove-content {
-  animation: fadeOut 1s ease !important;
+  animation: fadeOut var(--interval) ease !important;
 }

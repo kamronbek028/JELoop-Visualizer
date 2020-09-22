@@ -17,6 +17,7 @@ import parsedCode from "../functions/parsed-code";
 import unsortedCode from "../functions/unsorted-code";
 import sortFunction from "../functions/sort-function";
 import sortCallStack from "../functions/sort-call-stack";
+import callStackParser from "../functions/call-stack-parser";
 
 import "./homepage.styles.scss";
 
@@ -51,26 +52,26 @@ class HomePage extends React.Component {
 setTimeout(function () {
   console.log("last three");
 }, 1000);
-console.log("three");
+  console.log("three");
 }
-
+      
 setTimeout(function () {
   console.log("yes, setTimeout");
   one();
 }, 1000);
-        
+              
 function two() {
   console.log("two");
   three();
 }
-          
+                
 function one() {
   console.log("one");
   two();
 }
-          
+                
 console.log(multiply(4, 20));
-          
+                
 one();`;
 
     this.setState({ value: markup });
@@ -110,6 +111,14 @@ one();`;
 
     clearState();
 
+    // INTERVAL
+    const interval = 1500;
+
+    document.documentElement.style.setProperty(
+      "--interval",
+      `${interval - 100}ms`
+    );
+
     // CHECK FORMAT SPELLING
     const success = checkFormat(JSHINT, value);
 
@@ -126,6 +135,19 @@ one();`;
 
       // SORTING CALL STACK
       sortCallStack(unsortedCallStack, isCallStack, isFunction);
+
+      // PARSE CALL STACK
+      callStackParser(
+        editor,
+        interval,
+        isCallStack,
+        isFunction,
+        isWebApi,
+        isCallbackQueue,
+        callStackPlayground,
+        webApiPlayground,
+        callbackQueuePlayground
+      );
 
       console.log(isFunction);
       console.log(isCallStack);
