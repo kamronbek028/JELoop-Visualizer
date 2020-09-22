@@ -15,6 +15,8 @@ import { JSHINT } from "jshint";
 import checkFormat from "../functions/check-format";
 import parsedCode from "../functions/parsed-code";
 import unsortedCode from "../functions/unsorted-code";
+import sortFunction from "../functions/sort-function";
+import sortCallStack from "../functions/sort-call-stack";
 
 import "./homepage.styles.scss";
 
@@ -119,10 +121,14 @@ one();`;
       // UNSORTING CODE
       unsortedCode(parsedCodeTree, unsortedCallStack, unsortedFunction);
 
-      console.log(parsedCodeTree);
-      console.log(unsortedFunction);
-      console.log(unsortedCallStack);
-      console.log("NO ERROR");
+      // SORTING FUNCTION
+      sortFunction(unsortedFunction, isFunction);
+
+      // SORTING CALL STACK
+      sortCallStack(unsortedCallStack, isCallStack, isFunction);
+
+      console.log(isFunction);
+      console.log(isCallStack);
     }
   };
 
