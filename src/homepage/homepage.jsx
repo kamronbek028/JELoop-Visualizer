@@ -112,7 +112,7 @@ one();`;
     clearState();
 
     // INTERVAL
-    const interval = 1500;
+    const interval = 800;
 
     document.documentElement.style.setProperty(
       "--interval",
@@ -148,9 +148,6 @@ one();`;
         webApiPlayground,
         callbackQueuePlayground
       );
-
-      console.log(isFunction);
-      console.log(isCallStack);
     }
   };
 
