@@ -140,6 +140,8 @@ one();`;
       callStackParser(
         editor,
         interval,
+        unsortedCallStack,
+        unsortedFunction,
         isCallStack,
         isFunction,
         isWebApi,

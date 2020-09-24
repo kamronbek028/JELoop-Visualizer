@@ -107,7 +107,7 @@ $border: #797a7e;
           margin: 0 auto;
           padding: 10px;
           overflow-x: hidden;
-          animation: fadeIn var(--interval) ease;
+          animation: fadeIn var(--interval) ease-in-out;
 
           &:not(:last-child) {
             margin: 10px auto;
