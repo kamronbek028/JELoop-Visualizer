@@ -84,18 +84,25 @@ one();`;
     let webApiPlayground = this.webApiPlayground.current;
     let callbackQueuePlayground = this.callbackQueuePlayground.current;
 
+    this.setState({
+      unsortedCallStack: [],
+      unsortedFunction: [],
+      isCallStack: [],
+      isFunction: [],
+      isWebApi: [],
+      isCallbackQueue: [],
+    });
+
     callStackPlayground.innerHTML = "";
     webApiPlayground.innerHTML = "";
     callbackQueuePlayground.innerHTML = "";
 
-    this.setState({
-      unsortedCallStack: "",
-      unsortedFunction: "",
-      isCallStack: "",
-      isFunction: "",
-      isWebApi: "",
-      isCallbackQueue: "",
-    });
+    // CLEAR ALL SETTIMEOUT
+    var id = window.setTimeout(function () {}, 0);
+
+    while (id--) {
+      window.clearTimeout(id);
+    }
   };
 
   onClick = () => {
@@ -117,6 +124,7 @@ one();`;
     let callbackQueuePlayground = this.callbackQueuePlayground.current;
 
     // CLEAR STATE
+    this.clearState();
 
     // INTERVAL
     const interval = 800;
