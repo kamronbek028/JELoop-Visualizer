@@ -1,5 +1,6 @@
+$homepage: #0e1525;
 $playground: #282a36;
-$btn: #262b3b;
+$btn: #383e50;
 
 $primary-text: #e0e6f0;
 $secondary-text: #9ea8b9;
@@ -29,19 +30,93 @@ $border: #797a7e;
 
 .homepage {
   max-height: 100vh;
-  background-color: #0e1525;
+  background-color: $homepage;
   display: grid;
   grid-template-rows: 60px calc(100vh - 60px);
 
   .navbar {
-    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+    padding: 0 0 0 30px;
+    background-color: $playground;
+    color: $primary-text;
+    border-right: 1px solid $border;
+    border-bottom: 1px solid $border;
+    border-radius: 2px;
+    overflow: hidden;
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: $border;
-      border: none;
+    .left {
+      display: flex;
+
+      & > * {
+        // margin-right: 40px;
+      }
+    }
+
+    .right {
+      display: flex;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.4s;
+    }
+
+    .secondary {
+      padding: 0 40px;
+      font-size: 18px;
+
+      &:hover {
+        background-color: #383e50;
+      }
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+
+    .title {
+      font-family: "PT Serif", serif;
+      font-size: 30px;
+      letter-spacing: 1px;
+      transition: all 0.4s;
+      padding: 0 30px;
+      text-decoration: none;
       color: $primary-text;
+
+      &:hover {
+        background-color: #383e50;
+      }
+    }
+
+    .visualize {
+      font-family: inherit;
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: $playground;
+      color: $primary-text;
+      border: none;
+      border: 1px solid $border;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+
+      &:hover {
+        background-color: $btn;
+      }
+
+      &:active {
+        outline: none;
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 

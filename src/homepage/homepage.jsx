@@ -44,6 +44,7 @@ class HomePage extends React.Component {
       isFunction: [],
       isWebApi: [],
       isCallbackQueue: [],
+      speed: "Fast",
     };
   }
 
@@ -54,28 +55,48 @@ setTimeout(function () {
 }, 1000);
   console.log("three");
 }
-      
+
 setTimeout(function () {
   console.log("yes, setTimeout");
   one();
 }, 1000);
-              
+
 function two() {
   console.log("two");
   three();
 }
-                
+
 function one() {
   console.log("one");
   two();
 }
-                
+
 console.log(multiply(4, 20));
-                
+
 one();`;
 
     this.setState({ value: markup });
   }
+
+  clearState = () => {
+    // REF VARIABLES
+    let callStackPlayground = this.callStackPlayground.current;
+    let webApiPlayground = this.webApiPlayground.current;
+    let callbackQueuePlayground = this.callbackQueuePlayground.current;
+
+    callStackPlayground.innerHTML = "";
+    webApiPlayground.innerHTML = "";
+    callbackQueuePlayground.innerHTML = "";
+
+    this.setState({
+      unsortedCallStack: "",
+      unsortedFunction: "",
+      isCallStack: "",
+      isFunction: "",
+      isWebApi: "",
+      isCallbackQueue: "",
+    });
+  };
 
   onClick = () => {
     // STATE VARIABLES
@@ -96,20 +117,6 @@ one();`;
     let callbackQueuePlayground = this.callbackQueuePlayground.current;
 
     // CLEAR STATE
-    const clearState = function () {
-      unsortedCallStack = [];
-      unsortedFunction = [];
-      isCallStack = [];
-      isFunction = [];
-      isWebApi = [];
-      isCallbackQueue = [];
-
-      callbackQueuePlayground.innerHTML = "";
-      webApiPlayground.innerHTML = "";
-      callbackQueuePlayground.innerHTML = "";
-    };
-
-    clearState();
 
     // INTERVAL
     const interval = 800;
@@ -153,11 +160,35 @@ one();`;
     }
   };
 
+  clearPlayground = () => {
+    this.setState({ value: "" });
+    this.clearState();
+  };
+
   render() {
+    const { speed } = this.state;
+
     return (
       <div className="homepage">
         <div className="navbar">
-          <button onClick={this.onClick}>visualize</button>
+          <div className="left">
+            <div className="btn">
+              <button className="visualize" onClick={this.onClick}>
+                Visualize
+              </button>
+            </div>
+            <div className="nav secondary select">Speed: {speed}</div>
+            <div className="nav secondary select">Example: 1</div>
+            <div onClick={this.clearPlayground} className="nav secondary">
+              Clear playground
+            </div>
+          </div>
+
+          <div className="right">
+            <a className="nav title" href="/">
+              JELoop Visualizer
+            </a>
+          </div>
         </div>
         <div className="main">
           <div className="main__left">
