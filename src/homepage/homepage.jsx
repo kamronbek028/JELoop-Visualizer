@@ -35,6 +35,8 @@ class HomePage extends React.Component {
     this.callStackPlayground = React.createRef();
     this.webApiPlayground = React.createRef();
     this.callbackQueuePlayground = React.createRef();
+    this.dropdownSpeed = React.createRef();
+    this.dropdownExample = React.createRef();
 
     this.state = {
       value: "",
@@ -45,19 +47,19 @@ class HomePage extends React.Component {
       isWebApi: [],
       isCallbackQueue: [],
       speed: "Fast",
+      example: 1,
+      isSpeedOpen: false,
+      isExampleOpen: false,
     };
   }
 
   componentDidMount() {
-    const markup = `function three() {
-setTimeout(function () {
-  console.log("last three");
-}, 1000);
+    const markup1 = `function three() {
   console.log("three");
 }
 
 setTimeout(function () {
-  console.log("yes, setTimeout");
+  console.log("last log");
   one();
 }, 1000);
 
@@ -71,11 +73,9 @@ function one() {
   two();
 }
 
-console.log(multiply(4, 20));
-
 one();`;
 
-    this.setState({ value: markup });
+    this.setState({ value: markup1 });
   }
 
   clearState = () => {
@@ -115,6 +115,7 @@ one();`;
       isFunction,
       isWebApi,
       isCallbackQueue,
+      speed,
     } = this.state;
 
     // REF VARIABLES
@@ -127,7 +128,20 @@ one();`;
     this.clearState();
 
     // INTERVAL
-    const interval = 800;
+
+    let interval = 800;
+
+    if (speed === "Very Fast") {
+      interval = 600;
+    } else if (speed === "Fast") {
+      interval = 800;
+    } else if (speed === "Average") {
+      interval = 1100;
+    } else if (speed === "Slow") {
+      interval = 1500;
+    } else if (speed === "Very Slow") {
+      interval = 3000;
+    }
 
     document.documentElement.style.setProperty(
       "--interval",
@@ -173,8 +187,195 @@ one();`;
     this.clearState();
   };
 
+  // DROPDOWN
+  dropdownToggleSpeed = () => {
+    const dropdownSpeed = this.dropdownSpeed.current;
+    let { isSpeedOpen } = this.state;
+
+    if (!isSpeedOpen) {
+      dropdownSpeed.style.display = "block";
+      dropdownSpeed.parentNode.classList.add("dropdown__active");
+      this.setState({ isSpeedOpen: true });
+    } else if (isSpeedOpen) {
+      dropdownSpeed.style.display = "none";
+      dropdownSpeed.parentNode.classList.remove("dropdown__active");
+      this.setState({ isSpeedOpen: false });
+    }
+
+    const array = Array.from(dropdownSpeed.children[0].children);
+
+    const eventHandle = (event) => {
+      let childElement = true;
+
+      array.forEach((child) => {
+        if (event.target === child) {
+          childElement = false;
+        }
+      });
+
+      if (event.target === dropdownSpeed.parentNode && childElement) {
+        document.documentElement.removeEventListener("click", eventHandle);
+      }
+
+      if (event.target !== dropdownSpeed.parentNode && childElement) {
+        dropdownSpeed.style.display = "none";
+        dropdownSpeed.parentNode.classList.remove("dropdown__active");
+        this.setState({ isSpeedOpen: false });
+
+        document.documentElement.removeEventListener("click", eventHandle);
+      }
+    };
+
+    document.documentElement.addEventListener("click", eventHandle);
+  };
+
+  dropdownToggleExample = () => {
+    const dropdownExample = this.dropdownExample.current;
+    let { isExampleOpen } = this.state;
+
+    if (!isExampleOpen) {
+      dropdownExample.style.display = "block";
+      dropdownExample.parentNode.classList.add("dropdown__active");
+      this.setState({ isExampleOpen: true });
+    } else if (isExampleOpen) {
+      dropdownExample.style.display = "none";
+      dropdownExample.parentNode.classList.remove("dropdown__active");
+      this.setState({ isExampleOpen: false });
+    }
+
+    const array = Array.from(dropdownExample.children[0].children);
+
+    const eventHandle = (event) => {
+      let childElement = true;
+
+      array.forEach((child) => {
+        if (event.target === child) {
+          childElement = false;
+        }
+      });
+
+      if (event.target === dropdownExample.parentNode && childElement) {
+        document.documentElement.removeEventListener("click", eventHandle);
+      }
+
+      if (event.target !== dropdownExample.parentNode && childElement) {
+        dropdownExample.style.display = "none";
+        dropdownExample.parentNode.classList.remove("dropdown__active");
+        this.setState({ isExampleOpen: false });
+
+        document.documentElement.removeEventListener("click", eventHandle);
+      }
+    };
+
+    document.documentElement.addEventListener("click", eventHandle);
+  };
+
+  // SPEED
+  speedVeryFast = () => {
+    this.setState({ speed: "Very Fast" });
+  };
+
+  speedFast = () => {
+    this.setState({ speed: "Fast" });
+  };
+
+  speedAverage = () => {
+    this.setState({ speed: "Average" });
+  };
+
+  speedSlow = () => {
+    this.setState({ speed: "Slow" });
+  };
+
+  verySlow = () => {
+    this.setState({ speed: "Very Slow" });
+  };
+
+  // EXAMPLE
+  example1 = () => {
+    this.setState({ example: 1 });
+
+    const markup1 = `function three() {
+  console.log("three");
+}
+
+setTimeout(function () {
+  console.log("last log");
+  one();
+}, 1000);
+
+function two() {
+  console.log("two");
+  three();
+}
+
+function one() {
+  console.log("one");
+  two();
+}
+
+one();`;
+
+    this.setState({ value: markup1 });
+  };
+
+  example2 = () => {
+    this.setState({ example: 2 });
+
+    const markup2 = `setTimeout(function () {
+  console.log("hello");
+}, 1000);
+
+function a() {
+  console.log("a");
+
+  function b() {
+    console.log("b");
+  }
+
+  b();
+}
+
+console.log("hey");
+
+setTimeout(function () {
+  console.log("setTimeout");
+}, 1600);
+
+a();`;
+
+    this.setState({ value: markup2 });
+  };
+
+  example3 = () => {
+    this.setState({ example: 3 });
+
+    const markup3 = `console.log("one");
+console.log("two");
+
+function noInvocation() {
+  console.log("no invocation");
+}
+
+function three() {
+  console.log("three");
+
+  function block() {
+    console.log("block");
+  }
+}
+
+three();
+
+console.log("last");
+
+block();`;
+
+    this.setState({ value: markup3 });
+  };
+
   render() {
-    const { speed } = this.state;
+    let { speed, example } = this.state;
 
     return (
       <div className="homepage">
@@ -185,8 +386,40 @@ one();`;
                 Visualize
               </button>
             </div>
-            <div className="nav secondary select">Speed: {speed}</div>
-            <div className="nav secondary select">Example: 1</div>
+            <div
+              onClick={this.dropdownToggleSpeed}
+              className="nav secondary select speed"
+            >
+              Speed: {speed}
+              <div
+                ref={this.dropdownSpeed}
+                className="speed__dropdown dropdown"
+              >
+                <ul>
+                  <li onClick={this.speedVeryFast}>Very Fast</li>
+                  <li onClick={this.speedFast}>Fast</li>
+                  <li onClick={this.speedAverage}>Average</li>
+                  <li onClick={this.speedSlow}>Slow</li>
+                  <li onClick={this.verySlow}>Very Slow</li>
+                </ul>
+              </div>
+            </div>
+            <div
+              onClick={this.dropdownToggleExample}
+              className="nav secondary select example"
+            >
+              Example: {example}
+              <div
+                ref={this.dropdownExample}
+                className="speed__dropdown dropdown"
+              >
+                <ul>
+                  <li onClick={this.example1}>Demo: 1</li>
+                  <li onClick={this.example2}>Demo: 2</li>
+                  <li onClick={this.example3}>Demo: 3</li>
+                </ul>
+              </div>
+            </div>
             <div onClick={this.clearPlayground} className="nav secondary">
               Clear playground
             </div>

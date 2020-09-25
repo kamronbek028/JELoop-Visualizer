@@ -44,14 +44,9 @@ $border: #797a7e;
     border-right: 1px solid $border;
     border-bottom: 1px solid $border;
     border-radius: 2px;
-    overflow: hidden;
 
     .left {
       display: flex;
-
-      & > * {
-        // margin-right: 40px;
-      }
     }
 
     .right {
@@ -68,9 +63,40 @@ $border: #797a7e;
     .secondary {
       padding: 0 40px;
       font-size: 18px;
+      user-select: none;
 
       &:hover {
         background-color: #383e50;
+      }
+    }
+
+    .select {
+      position: relative;
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0px;
+        z-index: 10;
+        background-color: $btn;
+        border: 1px solid $border;
+        border-radius: 2px;
+        transition: all 0.4s;
+
+        ul {
+          list-style: none;
+
+          li {
+            padding: 8px 25px 8px 8px;
+            border-radius: 2px;
+            transition: all 0.4s;
+
+            &:hover {
+              background-color: $playground;
+            }
+          }
+        }
       }
     }
 
@@ -199,4 +225,8 @@ $border: #797a7e;
 
 .remove-content {
   animation: fadeOut var(--interval) ease !important;
+}
+
+.dropdown__active {
+  background-color: $btn;
 }

@@ -61,6 +61,11 @@ function callStackParser(
             // INSERT INTO WEB API PLAYGROUND
             insertElement(prevStack, editor, webApiPlayground);
 
+            if (isWebApi.length > 0) {
+              // CHECK IF LAST LINE
+              checkLastLine(line);
+            }
+
             // REMOVE ANIMATION FROM WEB API PLAYGROUND
             setTimeout(() => {
               webApiPlayground.children[
@@ -94,17 +99,15 @@ function callStackParser(
 
       // END INVOCATION
       else if (line.type === "endInvocation") {
-        if (currentCallStack) {
-          currentCallStack.classList.add("remove-content");
+        currentCallStack.classList.add("remove-content");
 
-          setTimeout(() => {
-            unhighlightText(isCallStack[index], editor);
-            currentCallStack.remove();
+        setTimeout(() => {
+          unhighlightText(isCallStack[index], editor);
+          currentCallStack.remove();
 
-            // CHECK IF LAST LINE
-            checkLastLine(line);
-          }, interval - 120);
-        }
+          // CHECK IF LAST LINE
+          checkLastLine(line);
+        }, interval - 120);
       }
     }, interval * index);
   });
