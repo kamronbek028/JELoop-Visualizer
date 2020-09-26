@@ -44,7 +44,7 @@ function insertElement(line, editor, playground) {
       let newParagraph = ``;
 
       // LOOPING OVER EACH LINE
-      array.map(function (line) {
+      array.forEach(function (line) {
         newParagraph += `<p>${line}</p>`;
       });
 

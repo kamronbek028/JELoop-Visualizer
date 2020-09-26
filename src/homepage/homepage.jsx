@@ -18,6 +18,7 @@ import unsortedCode from "../functions/unsorted-code";
 import sortFunction from "../functions/sort-function";
 import sortCallStack from "../functions/sort-call-stack";
 import callStackParser from "../functions/call-stack-parser";
+import unhighlightAllText from "../functions/unhighlight-all-text";
 
 import "./homepage.styles.scss";
 
@@ -80,6 +81,7 @@ one();`;
 
   clearState = () => {
     // REF VARIABLES
+    const editor = this.editor.current.editor;
     let callStackPlayground = this.callStackPlayground.current;
     let webApiPlayground = this.webApiPlayground.current;
     let callbackQueuePlayground = this.callbackQueuePlayground.current;
@@ -96,6 +98,9 @@ one();`;
     callStackPlayground.innerHTML = "";
     webApiPlayground.innerHTML = "";
     callbackQueuePlayground.innerHTML = "";
+
+    // UNHIGHLIGHTING ALL TEXT
+    unhighlightAllText(editor.doc.size, editor);
 
     // CLEAR ALL SETTIMEOUT
     var id = window.setTimeout(function () {}, 0);
@@ -128,7 +133,6 @@ one();`;
     this.clearState();
 
     // INTERVAL
-
     let interval = 800;
 
     if (speed === "Very Fast") {
@@ -317,6 +321,7 @@ function one() {
 one();`;
 
     this.setState({ value: markup1 });
+    this.clearState();
   };
 
   example2 = () => {
@@ -345,6 +350,7 @@ setTimeout(function () {
 a();`;
 
     this.setState({ value: markup2 });
+    this.clearState();
   };
 
   example3 = () => {
@@ -372,6 +378,7 @@ console.log("last");
 block();`;
 
     this.setState({ value: markup3 });
+    this.clearState();
   };
 
   render() {
@@ -451,6 +458,11 @@ block();`;
               }}
               onBeforeChange={(editor, data, value) => {
                 this.setState({ value });
+
+                // CLEAR STATE
+                if (data.origin) {
+                  this.clearState();
+                }
               }}
               onChange={(editor, data, value) => {}}
             />
