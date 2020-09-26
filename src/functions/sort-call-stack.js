@@ -41,7 +41,6 @@ function deepStack(arg, isCallStack, cloneIsFunction) {
         });
       else {
         // FUNCTION INVOCATION
-
         isCallStack.push({
           type: "functionInvocation",
           value: arg.expression.callee.name,

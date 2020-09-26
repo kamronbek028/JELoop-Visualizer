@@ -12,6 +12,8 @@ import "../../node_modules/codemirror/addon/lint/javascript-lint";
 
 import { JSHINT } from "jshint";
 
+import PopupWelcome from "../components/popup-welcome/popup-welcome.component";
+
 import checkFormat from "../functions/check-format";
 import parsedCode from "../functions/parsed-code";
 import unsortedCode from "../functions/unsorted-code";
@@ -40,6 +42,7 @@ class HomePage extends React.Component {
     this.dropdownExample = React.createRef();
 
     this.state = {
+      popupWelcome: true,
       value: "",
       unsortedCallStack: [],
       unsortedFunction: [],
@@ -381,11 +384,17 @@ block();`;
     this.clearState();
   };
 
+  closePopup = () => {
+    this.setState({ popupWelcome: false });
+  };
+
   render() {
-    let { speed, example } = this.state;
+    let { popupWelcome, speed, example } = this.state;
 
     return (
       <div className="homepage">
+        {popupWelcome ? <PopupWelcome closePopup={this.closePopup} /> : null}
+
         <div className="navbar">
           <div className="left">
             <div className="btn">

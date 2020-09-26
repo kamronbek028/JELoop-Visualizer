@@ -15,7 +15,6 @@ function checkFormat(JSHINT, value) {
       }
     }
 
-    alert(output);
     return success;
   }
 
