@@ -101,6 +101,11 @@ $secondary-text: #9ea8b9;
       font-size: 20px;
       cursor: pointer;
       user-select: none;
+      transition: all 0.2s;
+
+      &:hover {
+        color: $primary-text;
+      }
     }
   }
 }
