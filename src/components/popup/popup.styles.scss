@@ -1,10 +1,8 @@
-$homepage: #0e1525;
 $playground: #282a36;
-$btn: #383e50;
+$border: #797a7e;
 
 $primary-text: #e0e6f0;
 $secondary-text: #9ea8b9;
-$border: #797a7e;
 
 .popup {
   position: absolute;
@@ -16,27 +14,35 @@ $border: #797a7e;
   background-color: rgba(black, 0.8);
   z-index: 100;
 
-  /* width */
   ::-webkit-scrollbar {
     width: 0px;
   }
 
-  /* Track */
   ::-webkit-scrollbar-track {
     background: $playground;
   }
 
-  /* Handle */
   ::-webkit-scrollbar-thumb {
     background: $playground;
   }
 
+  &__welcome {
+    grid-template-rows: 15% 15% 60% 10%;
+  }
+
+  &__alert {
+    grid-template-rows: 15% 15% 70%;
+  }
+
   &__content {
+    display: grid;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
     background-color: $playground;
     border: 1px solid $border;
     border-radius: 4px;
-
-    position: absolute;
     color: $secondary-text;
     top: 50%;
     left: 50%;
@@ -47,12 +53,6 @@ $border: #797a7e;
     padding: 40px;
     overflow-y: scroll;
     overflow-x: hidden;
-
-    display: grid;
-    text-align: center;
-    justify-content: center;
-    justify-items: center;
-    grid-template-rows: 15% 15% 60% 10%;
 
     .title {
       color: $primary-text;
@@ -74,6 +74,17 @@ $border: #797a7e;
       a:link {
         text-decoration: none;
         color: white;
+      }
+    }
+
+    .typos {
+      font-weight: 400;
+      font-size: 20px;
+      text-align: start;
+
+      p {
+        display: block;
+        margin-bottom: 10px;
       }
     }
 

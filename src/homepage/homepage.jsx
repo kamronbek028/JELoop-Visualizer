@@ -12,7 +12,7 @@ import "../../node_modules/codemirror/addon/lint/javascript-lint";
 
 import { JSHINT } from "jshint";
 
-import PopupWelcome from "../components/popup-welcome/popup-welcome.component";
+import { PopupWelcome, PopupAlert } from "../components/popup/popup.component";
 
 import checkFormat from "../functions/check-format";
 import parsedCode from "../functions/parsed-code";
@@ -43,6 +43,7 @@ class HomePage extends React.Component {
 
     this.state = {
       popupWelcome: true,
+      popupAlert: false,
       value: "",
       unsortedCallStack: [],
       unsortedFunction: [],
@@ -186,6 +187,8 @@ one();`;
         webApiPlayground,
         callbackQueuePlayground
       );
+    } else if (!success) {
+      this.setState({ popupAlert: true });
     }
   };
 
@@ -384,16 +387,25 @@ block();`;
     this.clearState();
   };
 
-  closePopup = () => {
+  closePopupWelcome = () => {
     this.setState({ popupWelcome: false });
   };
 
+  closePopupAlert = () => {
+    this.setState({ popupAlert: false });
+  };
+
   render() {
-    let { popupWelcome, speed, example } = this.state;
+    let { popupWelcome, popupAlert, speed, example } = this.state;
 
     return (
       <div className="homepage">
-        {popupWelcome ? <PopupWelcome closePopup={this.closePopup} /> : null}
+        {popupWelcome ? (
+          <PopupWelcome closePopup={this.closePopupWelcome} />
+        ) : null}
+        {popupAlert ? (
+          <PopupAlert JSHINT={JSHINT} closePopup={this.closePopupAlert} />
+        ) : null}
 
         <div className="navbar">
           <div className="left">
