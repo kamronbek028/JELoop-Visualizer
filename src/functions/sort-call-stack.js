@@ -1,3 +1,5 @@
+let level = 1;
+
 function deepStack(arg, isCallStack, cloneIsFunction) {
   if (arg.expression.callee) {
     if (arg.expression.callee.type === "MemberExpression") {
@@ -16,6 +18,7 @@ function deepStack(arg, isCallStack, cloneIsFunction) {
         value: value,
         loc: arg.loc,
         range: arg.range,
+        level,
       });
 
       isCallStack.push({
@@ -32,6 +35,7 @@ function deepStack(arg, isCallStack, cloneIsFunction) {
               value: argument.value,
               loc: arg.loc,
               range: arg.range,
+              level,
             });
 
             isCallStack.push({
@@ -46,15 +50,22 @@ function deepStack(arg, isCallStack, cloneIsFunction) {
           value: arg.expression.callee.name,
           loc: arg.loc,
           range: arg.range,
+          level,
         });
+
+        const cloneLevel = level;
 
         cloneIsFunction.forEach((functionLine) => {
           if (arg.expression.callee.name === functionLine.value) {
             functionLine.line.body.body.forEach((functionArgument) => {
+              level = level + 1;
               deepStack(functionArgument, isCallStack, cloneIsFunction);
+              level = cloneLevel;
             });
           }
         });
+
+        level = cloneLevel;
 
         isCallStack.push({
           type: "endInvocation",
@@ -104,6 +115,7 @@ const sortCallStack = (unsortedCallStack, isCallStack, isFunction) => {
           value: value,
           loc: line.loc,
           range: line.range,
+          level,
         });
 
         isCallStack.push({
@@ -120,6 +132,7 @@ const sortCallStack = (unsortedCallStack, isCallStack, isFunction) => {
                 value: argument.value,
                 loc: line.loc,
                 range: line.range,
+                level,
               });
 
               isCallStack.push({
@@ -134,15 +147,22 @@ const sortCallStack = (unsortedCallStack, isCallStack, isFunction) => {
             value: line.expression.callee.name,
             loc: line.loc,
             range: line.range,
+            level,
           });
+
+          const cloneLevel = level;
 
           cloneIsFunction.forEach((functionLine) => {
             if (line.expression.callee.name === functionLine.value) {
               functionLine.line.body.body.forEach((functionArgument) => {
+                level = level + 1;
                 deepStack(functionArgument, isCallStack, cloneIsFunction);
+                level = cloneLevel;
               });
             }
           });
+
+          level = cloneLevel;
 
           isCallStack.push({
             type: "endInvocation",

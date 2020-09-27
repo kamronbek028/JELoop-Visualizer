@@ -9,9 +9,9 @@ function highlightText(line, editor) {
     const tokensEnd = editor.getLineTokens(end, true);
 
     function chooseLine(spot, lineSpot) {
-      spot.forEach((line) => {
-        let beginning = CodeMirror.Pos(lineSpot, line.start);
-        let finish = CodeMirror.Pos(lineSpot, line.end);
+      spot.forEach((spotLine) => {
+        let beginning = CodeMirror.Pos(lineSpot, spotLine.start);
+        let finish = CodeMirror.Pos(lineSpot, spotLine.end);
         CodeMirror.Pos();
         let markOptions = {
           css: `background-color: rgba(224, 224, 224, 0.2);`,

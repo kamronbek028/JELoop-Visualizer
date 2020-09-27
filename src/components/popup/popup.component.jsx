@@ -9,8 +9,7 @@ export const PopupWelcome = ({ closePopup }) => (
     <div className="popup__content popup__welcome">
       <h1 className="title">Welcome to JELoop Visualizer!</h1>
       <h2 className="description">
-        This application visualizes how JavaScript Event Loop works behind the
-        scenes.
+        This application visualizes how JavaScript Event Loop works.
       </h2>
 
       <div className="logo">
@@ -57,7 +56,7 @@ export class PopupAlert extends React.Component {
 
       if (null != err) {
         output = err.line + "[" + err.character + "]: " + err.reason + "\n";
-        outputArray.push(output);
+        outputArray.unshift(output);
       } else {
         output = "Check format unknown error:\n";
         outputArray.push(output);

@@ -32,6 +32,7 @@ $secondary-text: #9ea8b9;
 
   &__alert {
     grid-template-rows: 15% 15% 70%;
+    width: 40% !important;
   }
 
   &__content {
@@ -47,7 +48,7 @@ $secondary-text: #9ea8b9;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
+    width: 50%;
     height: 70vh;
     box-shadow: 0 20px 40px rgba(black, 0.2);
     padding: 40px;
