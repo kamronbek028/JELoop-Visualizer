@@ -5,11 +5,7 @@ Welcome to JELoop Visualizer. This application visualizes how JavaScript Event L
 ### Insturctions
 
 Write ES5 code on the editor.<br />
-Click **Visualize** button on the top left corner to visualize your code.
-
-Click **Speed: Fast** to change execution speed from the navbar.<br />
-Click **Example: 1** to see special pre-written codes on the editor.<br />
-Click **Clear playground** to clear all written code from the playground.<br />
+Click **Visualize** button on the top left corner to visualize your code.<br />
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
