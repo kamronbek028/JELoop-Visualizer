@@ -454,7 +454,10 @@ block();`;
           </div>
 
           <div className="right">
-            <a className="nav title" href="/">
+            <a
+              className="nav title"
+              href="https://kamronbek028.github.io/JELoop-Visualizer/"
+            >
               JELoop Visualizer
             </a>
           </div>
