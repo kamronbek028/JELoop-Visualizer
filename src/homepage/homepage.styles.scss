@@ -71,7 +71,7 @@ $border: #797a7e;
       font-size: 18px;
 
       &:hover {
-        background-color: #383e50;
+        background-color: $btn;
       }
     }
 
@@ -121,7 +121,7 @@ $border: #797a7e;
       color: $primary-text;
 
       &:hover {
-        background-color: #383e50;
+        background-color: $btn;
       }
     }
 
