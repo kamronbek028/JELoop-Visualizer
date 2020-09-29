@@ -81,10 +81,10 @@ function callStackParser(
                 // INSERT INTO CALLBACK QUEUE PLAYGROUND
                 insertElement(prevStack, editor, callbackQueuePlayground);
 
-                // PUSHING STACK INTO WEB API
-                isWebApi.push(prevStack);
-
                 setTimeout(() => {
+                  // PUSHING STACK INTO WEB API
+                  isWebApi.push(prevStack);
+
                   // CHECK IF LAST LINE
                   checkLastLine(line);
                 }, interval);

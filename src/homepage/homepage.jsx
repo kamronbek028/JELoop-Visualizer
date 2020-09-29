@@ -61,12 +61,11 @@ class HomePage extends React.Component {
   componentDidMount() {
     const markup1 = `function three() {
   console.log("three");
-}
 
-setTimeout(function () {
-  console.log("last log");
-  one();
-}, 1000);
+  setTimeout(function () {
+    console.log("last");
+  }, 1000);
+}
 
 function two() {
   console.log("two");
@@ -307,12 +306,11 @@ one();`;
 
     const markup1 = `function three() {
   console.log("three");
-}
 
-setTimeout(function () {
-  console.log("last log");
-  one();
-}, 1000);
+  setTimeout(function () {
+    console.log("last");
+  }, 1000);
+}
 
 function two() {
   console.log("two");
